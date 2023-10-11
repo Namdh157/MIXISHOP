@@ -10,10 +10,7 @@ if(isset($_POST['btnSave']) && $_POST['btnSave']) {
     $productCategory = $_POST['product_category'];
     $productSpecial = $_POST['product_special'];
 
-    pdo_execute("INSERT INTO products(`name_product`, `price`, `img`, `description`, `view`, `id_category`, `discount`, `special`) VALUES 
-    ('$productName','$productPrice','$productImage','$productDescription','$productView','$productCategory','$productDiscount','$productSpecial')");
-    header("Location:index.php?type=Products");
-    exit();
+    addProduct($productName, $productPrice, $productImage, $productDescription, $productView, $productCategory, $productDiscount,$productSpecial);
 }   
 ?>
 <div class="container-products">
@@ -64,7 +61,7 @@ if(isset($_POST['btnSave']) && $_POST['btnSave']) {
                 <div class="col-md-4">
                     <select id="product_category" name="product_category" class="form-control" required>
                         <option value="">Lựa chọn loại sản phẩm </option>
-                        <?php foreach ($category as $value) { ?>
+                        <?php foreach (getALLCategory() as $value) { ?>
                             <option value="<?php echo $value['id'] ?>">
                                 <?php echo $value['name_category'] ?>
                             </option>
@@ -95,22 +92,22 @@ if(isset($_POST['btnSave']) && $_POST['btnSave']) {
                         <th scope="col" class="col-0">STT</th>
                         <th scope="col" class="col-2">Tên sản phẩm</th>
                         <th scope="col" class="col-0">Giá</th>
-                        <th scope="col" class="col-2">Hình ảnh</th>
+                        <th scope="col" class="col-3">Hình ảnh</th>
                         <th scope="col" class="col-1">Mô tả</th>
                         <th scope="col" class="col-1">Lượt xem</th>
-                        <th scope="col" class="col-0">Giảm giá</th>
+                        <th scope="col" class="col-1">Giảm giá</th>
                         <th scope="col" class="col-1">Danh mục</th>
-                        <th scope="col" class="col-4">Hành động</th>
+                        <th scope="col" class="col-2">Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($products as $key => $value) { ?>
+                    <?php foreach (getProductCategory() as $key => $value) { ?>
                         <tr>
                             <th scope="row"><?php echo $key + 1 ?></th>
                             <td> <?php echo $value['name_product'] ?></td>
                             <td> <?php echo number_format($value['price'], 0 , '.', ',') ?>₫</td>
                             <td>
-                                <img src="<?php echo $value['img'] ? $value['img'] : '' ?>" width="100px">
+                                <img src="../<?php echo $value['img'] ? $value['img'] : '' ?>" width="100px">
                             </td>
                             <td> <?php echo $value['description'] ? $value['description'] : 'Không mô tả' ?></td>
                             <td> <?php echo $value['view'] ? $value['view'] : 'Chưa có dữ liệu lượt xem' ?></td>
@@ -118,10 +115,10 @@ if(isset($_POST['btnSave']) && $_POST['btnSave']) {
                             <td> <?php echo $value['id_category'] == $value['id'] ? $value['name_category'] : '' ?></td>
                             <td>
                                 <a href="products/updateProduct.php?id=<?php echo $value[0] ?>">
-                                    <button class="bg-info text-dark rounded col-1 p-1">Sửa</button>
+                                    <button class="bg-info text-dark rounded  p-2">Sửa</button>
                                 </a>
                                 <a href="products/deleteProduct.php?id=<?php echo $value[0] ?>">
-                                    <button class="bg-danger text-dark rounded col-1 p-1 ms-2">Xóa</button>
+                                    <button class="bg-danger text-dark rounded p-2 ms-2">Xóa</button>
                                 </a>
                             </td>
                         </tr>

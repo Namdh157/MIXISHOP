@@ -1,7 +1,7 @@
 <?php
-require_once '../../assets/api/pdo.php';
+require_once '../../model/user.php';
 $id = $_GET['id'];
-$user = pdo_query("SELECT * FROM users WHERE id = $id");
+$user = getOneUser($id);
 if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     $nameUser = $_POST['userName'];
     $nameAcc = $_POST['nameAcc'];
@@ -9,16 +9,15 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     if (empty($_FILES['imageUser']['name'])) {
         $imageUser = $user[0]['image'];
     } else {
-        $imageUser = '../../assets/image/' . $_FILES['imageUser']['name'];
-        move_uploaded_file($_FILES['imageUser']['tmp_name'], $imageUser);
+        move_uploaded_file($_FILES['imageUser']['tmp_name'],'../../'.$imageUser);
+        $imageUser = 'assets/image/' . $_FILES['imageUser']['name'];
     }
     $emailUser = $_POST['emailUser'];
     $addressUser = $_POST['addressUser'];
     $phoneUser = $_POST['phoneUser'];
     $roleUser =  intval($_POST['roleUser']);
 
-    pdo_execute("UPDATE `users` SET `user_name`='$nameUser',`password`='$password',`name`='$nameAcc',`image`='$imageUser',`email`='$emailUser',
-                `address`='$addressUser',`phone`='$phoneUser',`role`='$roleUser' WHERE users.id = $id");
+    updateUsers($id,$nameUser,$password, $nameAcc, $imageUser, $emailUser, $addressUser, $phoneUser, $roleUser);
     header("Location:../index.php?type=Users");
 }
 ?>
@@ -29,7 +28,7 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cập nhật tài khoản </title>
+    <title>Cập nhật người dùng</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 </head>
@@ -43,7 +42,7 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
                     <div class="card rounded-3">
                         <img src="../../assets/image/Ảnh-bia-mixishop-1-1536x585.jpg" class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" width="100%">
                         <div class="card-body">
-                            <h3 class=" pb-md-0 mb-md-5 px-md-2"><?php echo $user[0]['user_name'] ?></h3>
+                            <h3 class=" pb-md-0 mb-md-5 px-md-2"> Cập nhật lại người dùng :  <?php echo $user[0]['user_name'] ?></h3>
 
                             <form class="px-md-2" method="post" enctype="multipart/form-data">
                                 <div class="form-outline">
@@ -75,9 +74,11 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
                                 <div class="mb-4">
                                     <label class="form-label" for="role">Chức vụ</label>
                                     <select name="roleUser" class="select w-100" id="role">
-                                        <option value=0>Khách hàng</option> 
-                                        <option value=1>Thành viên</option>                                     
-                                        <option value=10>Admin(Quản trị viên)</option>                                     
+                                        <?php foreach(getAllUsers() as $value) { ?>
+                                            <option value=0>Khách hàng</option> 
+                                            <option value=1>Thành viên</option>                                     
+                                            <option value=10>Admin(Quản trị viên)</option>   
+                                        <?php } ?>                                  
                                     </select>
                                 </div>
 

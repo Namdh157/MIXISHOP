@@ -1,8 +1,8 @@
 <?php
-require_once '../../assets/api/pdo.php';
+require_once '../../model/category.php';
+require_once '../../model/product.php';
 $id = $_GET['id'];
-$category =  pdo_query("SELECT * FROM category");
-$product =  pdo_query("SELECT * FROM products WHERE products.id = $id");
+ $product =  getOneProduct($id);
 
 if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     $nameProduct = $_POST['nameProduct'];
@@ -11,14 +11,14 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     if (empty($_FILES['imageProduct']['name'])) {
         $imageProduct = $product[0]['img'];
     } else {
-        $imageProduct = '../../assets/image/' . $_FILES['imageProduct']['name'];
-        move_uploaded_file($_FILES['imageProduct']['tmp_name'], $imageProduct);
+        $saveImage = '../../assets/image/'. $_FILES['imageProduct']['name'];
+        move_uploaded_file($_FILES['imageProduct']['tmp_name'], $saveImage);
+        $imageProduct = 'assets/image/' . $_FILES['imageProduct']['name'];
     }
     $descriptionProduct = $_POST['descriptionProduct'];
     $discountProduct = $_POST['discountProduct'];
     $specialProduct = $_POST['specialProduct'];
-    pdo_execute("UPDATE `products` SET `name_product`='$nameProduct',`price`='$priceProduct',`img`='$imageProduct',
-    `description`='$descriptionProduct',`id_category`='$categoryProduct',`discount`='$discountProduct',`special`='$specialProduct' WHERE products.id = $id");
+    updateProduct($id, $nameProduct, $priceProduct, $imageProduct, $descriptionProduct, $categoryProduct,  $discountProduct, $specialProduct);
     header("Location:../index.php?type=Products");
 }
 ?>
@@ -73,14 +73,15 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
                                 <div class="mb-4">
                                     <label class="form-label" for="categoryProduct">Loại sản phẩm</label>
                                     <select class="select w-100" id="categoryProduct" name="categoryProduct">
-                                        <?php foreach ($category as $values) { ?>
+                                        <?php foreach (getALLCategory() as $values) { ?>
                                             <option value="<?php echo $values['id'] ?>"> <?php echo $values['name_category'] ?> </option>
                                         <?php } ?>
                                     </select>
                                 </div>
 
                                 <div class="row mb-4">
-                                    <div class="col">
+                                    <div class="col text-center">
+                                        <img src="../../<?php echo $product[0]['img'] ?>" alt="ảnh sản phẩm" width="60">
                                         <div class="form-outline">
                                             <label class="form-label" for="customFile">Hình ảnh</label>
                                             <input type="file" name="imageProduct" class="form-control" id="customFile" />

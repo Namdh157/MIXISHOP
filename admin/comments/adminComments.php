@@ -1,26 +1,24 @@
 
-
-<div class="container-fluid  order">
+<div class="container-order">
     <div class="list-category">
         <div class="list-table">
-            <h3 class="text-center">Danh sách đơn hàng</h3>
-            <table class="table table-hover table-bordered center-table">
+            <h3 class="text-center">Danh sách bình luận</h3>
+            <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        <th scope="col" class="col-0">STT</th>
-                        <th scope="col" class="col-0">Số lượng</th>
-                        <th scope="col" class="col-4">Thông tin khách hàng</th>
-                        <th scope="col" class="col-4">Thông tin sản phẩm</th>
+                        <th scope="col">STT</th>
+                        <th scope="col" class="col-3">Thông tin khách hàng</th>
+                        <th scope="col" class="col-3">Thông tin sản phẩm</th>
+                        <th scope="col" class="col-2">Nội dung bình luận</th>
                         <th scope="col" class="col-1">Thời gian</th>
                         <th scope="col-3">Hành động</th>
                     </tr>
                 </thead>
                 
                 <tbody>
-                    <?php foreach (getAllCarts() as $key => $value) { ?>
+                    <?php foreach (getAllComments() as $key => $value) { ?>
                         <tr>
                             <th scope="row"><?php echo $key + 1 ?></th>
-                            <td> <?php echo $value['quantity'] ?></td>
                             <td> 
                                 Họ và tên : <?php echo $value['user_name'] ?> </br>
                                 Hình ảnh : <img src="../<?php echo $value['image'] ?>" alt="ảnh khách hàng" width="100"><br>
@@ -35,13 +33,14 @@
                                 Loại sản phẩm : <?php echo $value['name_category'] ?> </br>
 
                             </td>
-                            <td><?php echo $value['time'] ?></td>
-                            <td class="text-center">
-                                <a href="order/updateOrder.php?id=<?php echo $value[11] ?>">
-                                    <button class="bg-info text-dark rounded  p-2">Sửa</button>
+                            <td><?php echo $value['content'] ?></td>
+                            <td><?php echo $value['date_comment'] ?></td>
+                            <td>
+                                <a href="comments/updateComment.php?id=<?php echo $value['id_cmt'] ?>">
+                                    <button class="bg-info text-dark rounded p-2">Sửa</button>
                                 </a>
-                                <a href="order/deleteOrder.php?id=<?php echo $value[11] ?>">
-                                    <button class="bg-danger text-dark rounded  p-2 ms-2">Xóa</button>
+                                <a href="comments/deleteComment.php?id=<?php echo $value['id_cmt'] ?>">
+                                    <button class="bg-danger text-dark rounded p-2 ms-2">Xóa</button>
                                 </a>
                             </td>
                         </tr>

@@ -1,5 +1,5 @@
 <?php
-$users = pdo_query("SELECT * FROM users")
+
 ?>
 <div class="list-products">
     <div class="list-table">
@@ -20,14 +20,14 @@ $users = pdo_query("SELECT * FROM users")
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($users as $key => $value) { ?>
+                <?php foreach (getAllUsers() as $key => $value) { ?>
                     <tr>
                         <th scope="row"><?php echo $key + 1 ?></th>
                         <td> <?php echo $value['user_name'] ?></td>
                         <td> <?php echo $value['password'] ?></td>
                         <td> <?php echo $value['name'] ?> </td>
                         <td>
-                            <img src="../assets/image/<?php echo $value['image'] ? $value['image'] : '' ?>" width="100px">
+                            <img src="../<?php echo $value['image'] ? $value['image'] : '' ?>" width="100px">
                         </td>
                         <td> <?php echo $value['email'] ?></td>
                         <td> <?php echo $value['address']? $value['address'] : 'Chưa có địa chỉ' ?></td>
@@ -45,10 +45,10 @@ $users = pdo_query("SELECT * FROM users")
                         ?></td>
                         <td>
                             <a href="users/updateUsers.php?id=<?php echo $value['id'] ?>">
-                                <button class="bg-info text-dark rounded col-1 p-1">Sửa</button>
+                                <button class="bg-info text-dark rounded  p-2">Sửa</button>
                             </a>
                             <a href="users/deleteUsers.php?id=<?php echo $value['id'] ?>">
-                                <button class="bg-danger text-dark rounded col-1 p-1 ms-2">Xóa</button>
+                                <button class="bg-danger text-dark rounded  p-2 ms-2">Xóa</button>
                             </a>
                         </td>
                     </tr>

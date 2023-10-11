@@ -1,18 +1,15 @@
 <?php
-
 if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     $nameCategory = $_POST['nameCategory'];
     $isAdd = true;
-    foreach ($category as $value) {
-        if ($nameCategory === $value['name_category']) {
-            alert('Không thành công', 'Danh mục đã có vui lòng nhập lại','block');
-            $isAdd = false;
-        }
+    if ($nameCategory === getALLCategory()[0]['name_category']) {
+        alert('Không thành công', 'Danh mục đã có vui lòng nhập lại', 'block');
+        $isAdd = false;
     }
     if ($isAdd) {
-        pdo_execute("INSERT INTO category(name_category) VALUES('$nameCategory')");
-        header("location:index.php?type=Category");
-        alert('Thành công', 'Đã thêm danh mục ' . $nameCategory,'block'); 
+        addCategory($nameCategory);
+        echo '<script>window.location.href = "index.php?type=Category";</script>';
+        exit();
     }
 }
 ?>
@@ -47,7 +44,7 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($category as $key => $value) { ?>
+                    <?php foreach (getALLCategory() as $key => $value) { ?>
                         <tr>
                             <th scope="row"><?php echo $key + 1 ?></th>
                             <td> <?php echo $value['name_category'] ?></td>

@@ -1,5 +1,5 @@
 <?php
-require_once '../../assets/api/pdo.php';
+require_once '../../model/pdo.php';
 $users = pdo_query("SELECT * FROM users");
 if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     $userName = $_POST['user_name'];
@@ -8,8 +8,8 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     foreach ($users as $value) {
         if ($userName == $value['user_name'] && $password == $value['password']) {
             $user = $value['user_name'].':'.$value['password'].':'.$value['role'];
-            setcookie('user', base64_encode($user), time() +3600 , '/');
-            header("Location:../home");
+            setcookie('user', base64_encode($user), time() +36000 , '/');
+            header("Location:../../");
         }
     }
 }
@@ -27,7 +27,7 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
 
 <body>
     <main id="main">
-        <section class="vh-100" style="background-color: #95a5a6;">
+        <section class="vh-lg-100 " style="background-color: #95a5a6;">
             <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col col-xl-10">
@@ -45,7 +45,7 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
                                                 <img src="../../assets/image/logo-mixi-tét.png" alt="" width="200px">
                                             </div>
 
-                                            <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Đăng ký tài khoản</h5>
+                                            <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Đăng Nhập tài khoản</h5>
 
                                             <div class="form-outline mb-4">
                                                 <label class="form-label" for="form2Example17">Tên đăng nhập</label>

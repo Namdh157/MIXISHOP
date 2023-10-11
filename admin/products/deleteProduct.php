@@ -1,8 +1,8 @@
 <?php 
-require_once '../../assets/api/pdo.php';
+require_once '../../model/product.php';
 $id = $_GET['id'];
 
-    pdo_execute("DELETE FROM products WHERE products.id_category = $id");
+    deleteProduct($id);
+    
     header("location:../index.php?type=Products");
     exit();
-?>

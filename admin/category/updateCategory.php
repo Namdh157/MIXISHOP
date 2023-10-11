@@ -1,11 +1,10 @@
 <?php
-require_once '../../assets/api/pdo.php';
+require_once '../../model/category.php';
 $id = $_GET['id'];
-$category = pdo_query("SELECT * FROM category WHERE category.id= $id");
 
 if (isset($_POST['btnSave']) && $_POST['btnSave']) {
     $nameCategory = $_POST['nameCategory'];
-    pdo_execute("UPDATE `category` SET `name_category` = '$nameCategory' WHERE category.id = $id");
+    updateCategory($id, $nameCategory);
     header("Location:../index.php?type=Category");
 }
 ?>
@@ -49,14 +48,14 @@ if (isset($_POST['btnSave']) && $_POST['btnSave']) {
                             style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;" width="100%">
                         <div class="card-body">
                             <h3 class=" pb-md-0 mb-md-5 px-md-2">
-                                <?php echo $category[0]['name_category'] ?>
+                                <?php echo getOneCategory($id)[0]['name_category'] ?>
                             </h3>
 
                             <form class="px-md-2" method="post">
                                 <div class="form-outline pb-4">
-                                    <label class="form-label" for="nameCategory">Tên sản phẩm</label>
+                                    <label class="form-label" for="nameCategory">Tên danh mục</label>
                                     <input type="text" id="nameCategory" name="nameCategory" class="form-control"
-                                        value="<?php echo $category[0]['name_category'] ?>" />
+                                        value="<?php echo getOneCategory($id)[0]['name_category'] ?>" />
                                 </div>
 
                                 <input value="Gửi" type="submit" name="btnSave" class="btn btn-lg mb-1"

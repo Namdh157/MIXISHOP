@@ -1,10 +1,5 @@
 <style>
-    ul {
-
-        list-style: none;
-        padding-left: 0;
-        margin: 0;
-    }
+  
 
     a {
         cursor: pointer;
@@ -24,9 +19,7 @@
         transition: 0.3s;
         cursor: pointer;
     }
-
     button:hover {
-        background-color: var(--bl);
         transform: translateY(-3px);
     }
 
@@ -35,33 +28,14 @@
     }
     .container-admin nav img {
         width: 35px;
-        border-radius: 50%;
-    }
-    .container-content {
-        margin: 0 auto;
     }
     th,td {
         text-align: center;
     }
     /* pages */
 
-    /* @charset "utf-8"; */
-/* CSS Document */
 
-/* @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900|Rubik:300,400,500,700,900'); */
 
-/*********************************
-2. Body and some general stuff
-*********************************/
-
-*
-{
-	margin: 0;
-	padding: 0;
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
-	text-shadow: rgba(0,0,0,.01) 0 0 1px;
-}
 body
 {
 	font-family: 'Rubik', sans-serif;
@@ -127,14 +101,7 @@ p a:hover::after
 {
 	opacity: 0.2;
 }
-/* ::selection
-{
-	
-} */
-/* p::selection
-{
-	
-} */
+
 h1{font-size: 48px;}
 h2{font-size: 36px;}
 h3{font-size: 24px;}
@@ -147,19 +114,6 @@ h1, h2, h3, h4, h5, h6
 	-webkit-font-smoothing: antialiased;
 	-webkit-text-shadow: rgba(0,0,0,.01) 0 0 1px;
 	text-shadow: rgba(0,0,0,.01) 0 0 1px;
-}
-/* h1::selection, 
-h2::selection, 
-h3::selection, 
-h4::selection, 
-h5::selection, 
-h6::selection
-{
-	
-} */
-.form-control
-{
-	color: #db5246;
 }
 section
 {
@@ -1019,7 +973,6 @@ select option
 }
 .main_nav_dropdown li li
 {
-	padding-left: 15px;
 	padding-right: 15px;
 	margin-right: 0px;
 }
@@ -1306,10 +1259,7 @@ select option
 
 @media only screen and (max-width: 767px)
 {
-	.header_search
-	{
-		display: none;
-	}
+
 	.page_menu_search
 	{
 		display: block;
@@ -1409,7 +1359,7 @@ select option
 	}
 	.header_search
 	{
-		display: none;
+		/* display: none; */
 	}
 	.main_nav
 	{
@@ -1531,7 +1481,11 @@ select option
 }
 /* header animation */
 
-#header.stuck {
+#header {
+	position: relative;
+	width: 100%;
+}
+header.stuck {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -1539,11 +1493,6 @@ select option
 	background-color: #fff;
 	z-index: 10;
 	animation: menu_stuck 0.9s cubic-bezier(0, 0, 0, 0.36) ;
-}
-#header.stuck .overlay {
-	height: 100%;
-	width:100%;
-	display: block;
 }
 @keyframes menu_stuck {
 	from {

@@ -1,5 +1,6 @@
 <script>
-    const header = document.querySelector("#header");
+    const header = document.querySelector("header");
+    const headerDiv = document.querySelector("#header");
     window.onscroll = function() {
         if (window.pageYOffset > header.scrollTop +200) {
             header.classList.add("stuck");

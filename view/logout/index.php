@@ -5,5 +5,5 @@ if (isset($_COOKIE['user'])) {
     setcookie('user', null, -1, '/');
 }
 
-header("location:../home");
+header("location:../../index.php");
 ?>

@@ -1,5 +1,5 @@
 <?php
-require_once '../../assets/api/pdo.php';
+require_once '../../model/pdo.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($_POST['btnSave']) && $_POST['btnSave']) {

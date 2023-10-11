@@ -6,11 +6,11 @@ function listProducts($listProduct)
             <div class="row">
                 <?php
                 foreach ($listProduct as $value) { ?>
-                    <div class="col-lg-4 col-md-12 mb-4">
-                        <a href="../productDetail/?id=<?php echo $value[0] ?>">
-                            <div class="card">
+                    <div class="col-lg-4 col-sm-6 col-6 mb-4">
+                        <a href="?type=ProductDetail&id=<?php echo $value[0] ?>">
+                            <div class="card p-0 p-lg-3">
                                 <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light" data-mdb-ripple-color="light">
-                                    <img src="../<?php echo $value['img'] ?>" class="w-100" />
+                                    <img src="<?php echo $value['img'] ?>" class="w-100" />
                                     <a href="#!">
                                         <div class="mask">
                                             <div class="d-flex justify-content-start align-items-end h-100">
@@ -22,7 +22,7 @@ function listProducts($listProduct)
                                         </div>
                                     </a>
                                 </div>
-                                <div class="card-body fs-1">
+                                <div class="card-body fs-1 p-0" style="height: 125px;">
                                     <a href="" class="text-reset">
                                         <h5 class="card-title mb-3"><?php echo $value['name_product'] ?></h5>
                                     </a>
